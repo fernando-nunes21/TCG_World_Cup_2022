@@ -1,4 +1,6 @@
 import controller.ApplicationController;
+import model.User;
+import repository.impl.UserRepositoryImpl;
 import service.impl.CardServiceImpl;
 import service.impl.DeckServiceImpl;
 import service.impl.GameServiceImpl;
@@ -13,7 +15,7 @@ public class RunApplication {
     //Essa classe de funcionamento é so para testar o CRUD no momento.
     public static void main(String[] args) {
         ApplicationController applicationController = new ApplicationController(
-                new UserServiceImpl(),
+                new UserServiceImpl(new UserRepositoryImpl()),
                 new GameServiceImpl(),
                 new DeckServiceImpl(),
                 new CardServiceImpl()
