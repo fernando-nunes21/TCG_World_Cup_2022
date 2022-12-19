@@ -1,7 +1,7 @@
 package repository.impl;
 
 import config.ConnectionFactory;
-import model.User;
+import model.Deck;
 import repository.CrudRepository;
 
 import java.sql.Connection;
@@ -10,18 +10,18 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserRepositoryImpl implements CrudRepository<User> {
-
+public class DeckRepositoryImpl implements CrudRepository<Deck> {
     @Override
-    public void add(User user) {
+    public void add(Deck deck) {
         try {
+
             Connection connection = new ConnectionFactory().getConnection();
-            String sql = "insert into user (username, email, pass, user_role) values (?,?,?,?)";
+            String sql = "insert into deck (deck_name, deck_type, deck_cards, user_id) values (?,?,?,?)";
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPass());
-            stmt.setString(4, user.getUserRole());
+            stmt.setString(1, deck.getDeckName());
+            stmt.setString(2, deck.getDeckType());
+            stmt.setString(3, deck.getDeckCards());
+            stmt.setInt(4, deck.getUserId());
             stmt.execute();
             stmt.close();
             connection.close();
@@ -31,21 +31,21 @@ public class UserRepositoryImpl implements CrudRepository<User> {
     }
 
     @Override
-    public List<User> getAll() {
+    public List<Deck> getAll() {
         try {
             Connection connection = new ConnectionFactory().getConnection();
-            ResultSet result = connection.createStatement().executeQuery("select * from user");
-            List<User> users = new ArrayList<>();
+            ResultSet result = connection.createStatement().executeQuery("select * from deck");
+            List<Deck> decks = new ArrayList<>();
             while (result.next()) {
-                User user = new User();
-                user.setId(result.getInt("id"));
-                user.setUsername(result.getString("username"));
-                user.setEmail(result.getString("email"));
-                user.setPass(result.getString("pass"));
-                user.setUserRole(result.getString("user_role"));
-                users.add(user);
+                Deck deck = new Deck();
+                deck.setId(result.getInt("id"));
+                deck.setDeckName(result.getString("deck_name"));
+                deck.setDeckType(result.getString("deck_type"));
+                deck.setDeckCards(result.getString("deck_cards"));
+                deck.setUserId(result.getInt("user_id"));
+                decks.add(deck);
             }
-            return users;
+            return decks;
         } catch (Exception ex) {
             System.out.println(ex);
             return null;
@@ -53,16 +53,16 @@ public class UserRepositoryImpl implements CrudRepository<User> {
     }
 
     @Override
-    public void update(User user) {
+    public void update(Deck deck) {
         try {
             Connection connection = new ConnectionFactory().getConnection();
-            String sql = "update user set username = ?, email = ?, pass = ?, user_role = ? where id = ?";
+            String sql = "update deck set deck_name = ?, deck_type = ?, deck_cards = ?, user_id = ? where id = ?";
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, user.getUsername());
-            stmt.setString(2, user.getEmail());
-            stmt.setString(3, user.getPass());
-            stmt.setString(4, user.getUserRole());
-            stmt.setInt(5, user.getId());
+            stmt.setString(1, deck.getDeckName());
+            stmt.setString(2, deck.getDeckType());
+            stmt.setString(3, deck.getDeckCards());
+            stmt.setInt(4, deck.getUserId());
+            stmt.setInt(5, deck.getId());
             stmt.execute();
             stmt.close();
             connection.close();
@@ -72,12 +72,12 @@ public class UserRepositoryImpl implements CrudRepository<User> {
     }
 
     @Override
-    public void delete(User user) {
+    public void delete(Deck deck) {
         try {
             Connection connection = new ConnectionFactory().getConnection();
-            String sql = "delete from user where id = ?";
+            String sql = "delete from deck where id = ?";
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, user.getId());
+            stmt.setInt(1, deck.getId());
             stmt.execute();
             stmt.close();
             connection.close();

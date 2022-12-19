@@ -6,7 +6,7 @@ public class Deck {
     private Integer id;
     private String deckName;
     private String deckType;
-    private ArrayList<Integer> deckCards;
+    private String deckCards;
     private Integer userId;
 
     public Integer getId() {
@@ -33,11 +33,11 @@ public class Deck {
         this.deckType = deckType;
     }
 
-    public ArrayList<Integer> getDeckCards() {
+    public String getDeckCards() {
         return deckCards;
     }
 
-    public void setDeckCards(ArrayList<Integer> deckCards) {
+    public void setDeckCards(String deckCards) {
         this.deckCards = deckCards;
     }
 

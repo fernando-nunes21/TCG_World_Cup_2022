@@ -1,28 +1,43 @@
 import controller.ApplicationController;
+import service.impl.CardServiceImpl;
+import service.impl.DeckServiceImpl;
+import service.impl.GameServiceImpl;
+import service.impl.UserServiceImpl;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class RunApplication {
     //TODO - Ajustar funcionamento futuramente, atualmente fazer um controle por terminal para o uso do CRUD.
     //Este controle é temporário.
+    //Essa classe de funcionamento é so para testar o CRUD no momento.
     public static void main(String[] args) {
-        ApplicationController applicationController = new ApplicationController();
-        boolean running = true;
-        Scanner scanner = new Scanner(System.in);
+        ApplicationController applicationController = new ApplicationController(
+                new UserServiceImpl(),
+                new GameServiceImpl(),
+                new DeckServiceImpl(),
+                new CardServiceImpl()
+        );
 
-        while(running){
-            showStartMenu();
-            int op = scanner.nextInt();
+        System.out.println("Testa criação usuário");
+        System.out.println("Testa busca usuários");
+        System.out.println("Testa ediçao usuários");
+        System.out.println("Testa remoção usuários");
 
-        }
+        System.out.println("Testa criação cards");
+        System.out.println("Testa busca cards");
+        System.out.println("Testa ediçao cards");
+        System.out.println("Testa remoção cards");
 
+        System.out.println("Testa criação decks");
+        System.out.println("Testa busca decks");
+        System.out.println("Testa ediçao decks");
+        System.out.println("Testa remoção decks");
 
+        System.out.println("Testa criação game");
+        System.out.println("Testa busca game");
+        System.out.println("Testa ediçao game");
+        System.out.println("Testa remoção game");
     }
 
-    static void showStartMenu(){
-        System.out.println("Bem vindo ao sistema temporário do TCG WORLD CUP 2022");
-        System.out.println("Para acessar faça login, ou crie sua conta:");
-        System.out.println("Opção 1 - Logar");
-        System.out.println("Opção 2 - Criar conta");
-    }
 }
